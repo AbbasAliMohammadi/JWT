@@ -63,13 +63,14 @@ public class User implements UserDetails {
     @NotNull
     private Boolean activated;
 
-    @ManyToMany(fetch = FetchType.EAGER )
-	 private Set<Role> role;
+    @ManyToMany(fetch = FetchType.EAGER )  
+    @JoinTable(joinColumns = @JoinColumn(name="user_id"), inverseJoinColumns = @JoinColumn(name="role_id"))
+	 private Set<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        this.getRole().forEach(role -> {
+        this.getRoles().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getRole()));
         });
         
