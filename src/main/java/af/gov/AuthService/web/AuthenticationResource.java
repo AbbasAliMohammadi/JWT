@@ -15,20 +15,20 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("api/auth/")
 public class AuthenticationResource {
-	private final AuthenticationService authenticationResource;
+	private final AuthenticationService authenticationService;
 
-    public AuthenticationResource(AuthenticationService authenticationResource){
-     this.authenticationResource=authenticationResource;
+    public AuthenticationResource(AuthenticationService authenticationService){
+     this.authenticationService=authenticationService;
     }
 
 	@PostMapping("register")
 	public ResponseEntity<AuthResponseDTO> register(@Valid @RequestBody RegisterRequestDTO request) {
-		return ResponseEntity.ok(authenticationResource.register(request));
+		return ResponseEntity.ok(authenticationService.register(request));
 	}
 	 
 	@PostMapping("authenticate")
 	public ResponseEntity<AuthResponseDTO> authenticate(@Valid @RequestBody AuthRequestDTO request) {
 		
-		return ResponseEntity.ok(authenticationResource.authenticate(request));
+		return ResponseEntity.ok(authenticationService.authenticate(request));
 	}
 }

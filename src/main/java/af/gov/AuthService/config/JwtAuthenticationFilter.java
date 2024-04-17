@@ -2,6 +2,9 @@ package af.gov.AuthService.config;
 
 import java.io.IOException;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,6 +38,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return ;
         }
+        // check the authorization according to the role and permission like the bellow example
+        // if(request.getRequestURL().toString().equalsIgnoreCase("http://localhost:1000/api/test/")){
+        //     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        //     return ;
+        // }
+       
         jwt=authHeader.substring(7);
         username=jwtService.extractUsername(jwt);
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

@@ -43,6 +43,7 @@ public class AuthenticationService {
 	}
 
     public AuthResponseDTO authenticate(AuthRequestDTO request) {
+		
 		authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(
 						request.getUsername(),
